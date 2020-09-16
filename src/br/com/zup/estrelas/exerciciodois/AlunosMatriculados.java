@@ -17,13 +17,14 @@ public class AlunosMatriculados {
 	
 	public float calculaMedia() {
 		float media = 0;
+		
 		float pesoProva = 2.5f, pesoTrabalho = 2;
 		
-		float somaNotas = this.provaUm + this.provaDois + this.notaTrabalho;
+		float somaPesoNotas = pesoProva + pesoTrabalho;
 		
-		float mediaNotas = (this.provaUm * pesoProva) + (this.provaDois * pesoProva) + (this.notaTrabalho * pesoTrabalho);
+		float mediaPonderadaNotas = (this.provaUm * pesoProva) + (this.provaDois * pesoProva) + (this.notaTrabalho * pesoTrabalho);
 
-		media = mediaNotas / somaNotas;
+		media = mediaPonderadaNotas / somaPesoNotas;
 
 		return media;
 	}
@@ -34,6 +35,7 @@ public class AlunosMatriculados {
 		if (media > 6) {
 			return 0;
 		}
+		
 		return notaMaxima - media;
 	}
 	
@@ -49,23 +51,11 @@ public class AlunosMatriculados {
 		return provaUm;
 	}
 
-	public void setProvaUm(float provaUm) {
-		this.provaUm = provaUm;
-	}
-
 	public float getProvaDois() {
 		return provaDois;
 	}
 
-	public void setProvaDois(float provaDois) {
-		this.provaDois = provaDois;
-	}
-
 	public float getNotaTrabalho() {
 		return notaTrabalho;
-	}
-
-	public void setNotaTrabalho(float notaTrabalho) {
-		this.notaTrabalho = notaTrabalho;
 	}
 }
