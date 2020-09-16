@@ -12,24 +12,30 @@ public class AlunosMatriculados {
 		this.nome = nome;
 		this.provaUm = provaUm;
 		this.provaDois = provaDois;
-		this.matricula = matricula;
+		this.notaTrabalho = notaTrabalho;
 	}
 	
-	public float media() {
+	public float media(float provaUm, float provaDois, float notaTrabalho) {
 		float media = 0;
 		float pesoProva = 2.5f, pesoTrabalho = 2;
-		media = this.provaUm * pesoProva + this.provaDois * pesoProva + this.notaTrabalho * pesoTrabalho
-				/ this.notaTrabalho + this.provaUm + this.provaDois;
+		
+		float somaNotas = provaUm + provaDois + notaTrabalho;
+		float mediaNotas = (provaUm * pesoProva) + (provaDois * pesoProva) + (notaTrabalho * pesoTrabalho);
+
+		media = mediaNotas / somaNotas;
+
 		return media;
 	}
 	
-	public float provaFinal() {
-		float media = media();
+	public float provaFinal(float media) {
+		float notaMaxima = 10;
+
 		if (media > 6) {
 			return 0;
 		}
-		return 100 - media;
+		return notaMaxima - media;
 	}
+	
 	public String getMatricula() {
 		return matricula; 
 	}
