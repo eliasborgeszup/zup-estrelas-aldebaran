@@ -15,12 +15,13 @@ public class AlunosMatriculados {
 		this.notaTrabalho = notaTrabalho;
 	}
 	
-	public float media(float provaUm, float provaDois, float notaTrabalho) {
+	public float calculaMedia() {
 		float media = 0;
 		float pesoProva = 2.5f, pesoTrabalho = 2;
 		
-		float somaNotas = provaUm + provaDois + notaTrabalho;
-		float mediaNotas = (provaUm * pesoProva) + (provaDois * pesoProva) + (notaTrabalho * pesoTrabalho);
+		float somaNotas = this.provaUm + this.provaDois + this.notaTrabalho;
+		
+		float mediaNotas = (this.provaUm * pesoProva) + (this.provaDois * pesoProva) + (this.notaTrabalho * pesoTrabalho);
 
 		media = mediaNotas / somaNotas;
 
