@@ -18,10 +18,18 @@ public class AlunosMatriculados {
 	public float media() {
 		float media = 0;
 		float pesoProva = 2.5f, pesoTrabalho = 2;
-		media = this.provaUm * pesoProva + this.provaDois * pesoProva + this.notaTrabalho * pesoTrabalho / this.notaTrabalho + this.provaUm + this.provaDois;
+		media = this.provaUm * pesoProva + this.provaDois * pesoProva + this.notaTrabalho * pesoTrabalho
+				/ this.notaTrabalho + this.provaUm + this.provaDois;
 		return media;
 	}
 	
+	public float provaFinal() {
+		float media = media();
+		if (media > 6) {
+			return 0;
+		}
+		return 100 - media;
+	}
 	public String getMatricula() {
 		return matricula; 
 	}
