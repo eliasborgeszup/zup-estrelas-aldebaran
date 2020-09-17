@@ -31,11 +31,12 @@ public class Agenda {
 		for (int i = 0; i < pessoas.length; i++) {
 			if (pessoas[i] != null) {
 				String nomeConvertidoString = String.valueOf(pessoas[i].getNome());
-
+				
 				if (collator.compare(nomeConvertidoString, nome) == 0) {
 					pessoas[i].setNome(null);
 					pessoas[i].setIdade(0);
 					pessoas[i].setAltura(0);
+					contadorPessoa--;
 				}
 			}
 		}

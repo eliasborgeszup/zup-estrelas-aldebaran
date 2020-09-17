@@ -20,7 +20,6 @@ public class ProgramaPrincipal {
 	}
 
 	public static void main(String[] args) {
-		int pergunta = 0;
 		int respostaAgenda = 0;
 		int contador = 0;
 
@@ -28,7 +27,7 @@ public class ProgramaPrincipal {
 
 		Scanner teclado = new Scanner(System.in);
 
-		while (pergunta != 6) {
+		while (respostaAgenda != 6) {
 
 			System.out.println("1 - Armazenar pessoa \n2 - Remover pessoa \n3 - Buscar pessoa "
 					+ "\n4 - Imprime agenda \n5 - Imprime pessoa \n6 - SAIR");
@@ -37,7 +36,7 @@ public class ProgramaPrincipal {
 
 			switch (respostaAgenda) {
 			case 1: {
-				if (contador < 11) {
+				if (contador < 10) {
 					armazenaPessoa(agenda);
 					contador++;
 				} else {
@@ -47,18 +46,26 @@ public class ProgramaPrincipal {
 			}
 
 			case 2: {
-				System.out.print("Digite o nome completo que deseja remover: ");
-				String nome = teclado.nextLine();
-
-				agenda.removePessoa(nome);
+				if (contador < 1) {
+					System.out.println("Agenda Vazia");
+				} else {
+					System.out.print("Digite o nome completo que deseja remover: ");
+					String nome = teclado.nextLine();
+					System.out.println(nome);
+					agenda.removePessoa(nome);
+				}
 				break;
 			}
 
 			case 3: {
+				if (contador < 1) {
+					System.out.println("Agenda Vazia");
+				} else {
 				System.out.print("Digite o nome completo que deseja buscar: ");
 				String nome = teclado.nextLine();
 
 				agenda.buscaPessoa(nome);
+				}
 				break;
 			}
 
@@ -68,10 +75,14 @@ public class ProgramaPrincipal {
 			}
 
 			case 5: {
+				if (contador < 1) {
+					System.out.println("Agenda Vazia");
+				} else {
 				System.out.print("Digite a posição da pessoa que deseja remover: ");
 				int posicao = teclado.nextInt();
 
 				agenda.imprimirPessoa(posicao);
+				}
 				break;
 			}
 
