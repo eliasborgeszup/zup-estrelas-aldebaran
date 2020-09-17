@@ -16,6 +16,11 @@ public class Professor extends Funcionario{
 		this.quantidadeTurmas = quantidadeTurmas;
 	}
 
+	public void adicionarTurmas(int adicionarTurma, int quantidadeAlunosTurma) {
+		this.quantidadeTurmas =+ adicionarTurma; 
+		this.quantidadeAlunos =+ quantidadeAlunos;
+	}
+	
 	public String getNivelGraduacao() {
 		return nivelGraduacao;
 	}
@@ -47,6 +52,4 @@ public class Professor extends Funcionario{
 	public void setQuantidadeTurmas(int quantidadeTurmas) {
 		this.quantidadeTurmas = quantidadeTurmas;
 	}
-	
-	
 }

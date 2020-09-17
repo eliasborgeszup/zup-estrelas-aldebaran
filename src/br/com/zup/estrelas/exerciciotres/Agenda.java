@@ -42,6 +42,7 @@ public class Agenda {
 		}
 	}
 
+	
 	public int buscaPessoa(String nome) {
 		Collator collator = Collator.getInstance(new Locale("pt", "BR"));
 		collator.setStrength(Collator.PRIMARY);
