@@ -24,12 +24,57 @@ public class ProgramaPrincipal {
 		Agenda agenda = new Agenda();
 
 		
-		agenda.armazenaPessoa("Elias Junio", 22, 1.85f);
+		agenda.armazenaPessoa("Elias Junio 01", 22, 1.85f);
+		agenda.armazenaPessoa("Elias Junio", 23, 1.86f);
+		agenda.armazenaPessoa("Elias Junio", 24, 1.87f);
+		agenda.armazenaPessoa("Elias Junio 04", 25, 1.88f);
+		
+		agenda.imprimirPessoas();
+
+		System.out.println(agenda.pessoas[1].getNome());
+		
+		System.out.println("Posição: " + agenda.buscaPessoa("elias Junio"));
 		agenda.removePessoa("elias junio");
+		agenda.removePessoa("elias junio");
+		
+		if (agenda.buscaPessoa("elias das") == -1) {
+			System.out.println("Não foi possivel localizar");
+		}
+		
+
 		System.out.println(agenda.pessoas[0].getNome());
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		Scanner teclado = new Scanner(System.in);
-		do {
+		while(pergunta != 6) {
 			
 			System.out.println("1 - Armazenar pessoa \n2 - Remover pessoa \n3 - Buscar pessoa "
 					+ "\n4 - Imprime agenda \n5 - Imprime pessoa \n6 - SAIR");
@@ -61,7 +106,7 @@ public class ProgramaPrincipal {
 				System.out.println("Opção invalida");
 			}
 			
-		} while(pergunta != 6);
+		}
 		
 		
 		teclado.close();
