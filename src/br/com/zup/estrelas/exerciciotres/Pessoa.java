@@ -1,21 +1,20 @@
 package br.com.zup.estrelas.exerciciotres;
 
-import java.util.Calendar;
-
 public class Pessoa {
 	private String nome;
-	private int anoNascimento;
+	private int idade;
 	private float altura;
 
-	public Pessoa(String nome, int anoNascimento, float altura) {
-		this.nome = nome;
-		this.anoNascimento = anoNascimento;
-		this.altura = altura;
+	public Pessoa() {
+		this.nome = null;
+		this.idade = 0;
+		this.altura = 0;
 	}
-
-	public int calculaIdade(int anoNascimento) {
-		int anoAtual = Calendar.getInstance().get(Calendar.YEAR);
-		return anoAtual - anoNascimento;
+	
+	public Pessoa(String nome, int idade, float altura) {
+		this.nome = nome;
+		this.idade = idade;
+		this.altura = altura;
 	}
 
 	public String getNome() {
@@ -26,12 +25,12 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public int getAnoNascimento() {
-		return anoNascimento;
+	public int getIdade() {
+		return idade;
 	}
 
-	public void setAnoNascimento(int anoNascimento) {
-		this.anoNascimento = anoNascimento;
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 
 	public void setAltura(float altura) {
