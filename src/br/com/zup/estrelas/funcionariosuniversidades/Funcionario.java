@@ -21,24 +21,28 @@ public class Funcionario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
 	public int getNumeroRegistro() {
 		return numeroRegistro;
 	}
 	public void setNumeroRegistro(int numeroRegistro) {
 		this.numeroRegistro = numeroRegistro;
 	}
+	
 	public String getOrgaoLotacao() {
 		return orgaoLotacao;
 	}
 	public void setOrgaoLotacao(String orgaoLotacao) {
 		this.orgaoLotacao = orgaoLotacao;
 	}
+	
 	public float getSalario() {
 		return salario;
 	}
