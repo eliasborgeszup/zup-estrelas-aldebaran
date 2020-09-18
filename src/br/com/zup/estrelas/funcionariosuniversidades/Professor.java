@@ -18,7 +18,7 @@ public class Professor extends Funcionario{
 
 	public void adicionarTurmas(int adicionarTurma, int quantidadeAlunosTurma) {
 		this.quantidadeTurmas =+ adicionarTurma; 
-		this.quantidadeAlunos =+ quantidadeAlunos;
+		this.quantidadeAlunos =+ quantidadeAlunosTurma;
 	}
 	
 	public String getNivelGraduacao() {

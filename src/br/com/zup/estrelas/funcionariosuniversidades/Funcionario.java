@@ -18,8 +18,9 @@ public class Funcionario {
 	public void aumentaSalario() {	
 		if(this.orgaoLotacao.equals("Coordenação")) {
 			this.salario = this.salario * 1.05f;
-		}
+		} else {
 		this.salario = this.salario * 1.1f;
+		}
 	}
 	
 	public String getNome() {

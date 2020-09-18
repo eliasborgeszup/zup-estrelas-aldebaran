@@ -9,5 +9,10 @@ public class Administrativo extends Funcionario{
 		this.funcaoAdministrativa = funcaoAdministrativa;
 		this.senioridade = senioridade;
 	}
-
+	public String getFuncaoAdministrativa() {
+		return funcaoAdministrativa;
+	}
+	public String getSenioridade() {
+		return senioridade;
+	}
 }
