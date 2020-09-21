@@ -10,15 +10,19 @@ public class Coordernador extends Funcionario {
 
 		this.professoresSupervisionados = new Professor[10];
 	}
-	
-	public void adicionarProfessorSupervisionados(Professor professor) { 
-		for (int i = 0; i < professoresSupervisionados.length; i++) {
-			if (professoresSupervisionados[i] == null) {
-				professoresSupervisionados[i] = professor;
-				break;
-			}
-		}
 
+	@Override
+	public void aumentoSalario() {
+		super.setSalario(super.getSalario() * 1.05f);
+	}
+	//Retorno ideal serial retornar uma boolean
+	public void adicionarProfessorSupervisionados(Professor professor) {
+		for (int i = 0; i < this.professoresSupervisionados.length; i++) {
+			if (this.professoresSupervisionados[i] == null) {
+				this.professoresSupervisionados[i] = professor;
+				break;
+			} 
+		}
 	}
 
 	public void imprimirProfessoresSupervisionador() {

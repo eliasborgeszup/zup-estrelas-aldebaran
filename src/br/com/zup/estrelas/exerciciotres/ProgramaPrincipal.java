@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 public class ProgramaPrincipal {
 
-	public static void armazenaPessoa(Agenda agenda) {
-		Scanner teclado = new Scanner(System.in);
-
+	public static void armazenaPessoa(Agenda agenda, Scanner teclado) {
 		System.out.print("Digite o nome completo: ");
 		String nome = teclado.nextLine();
 
@@ -37,7 +35,7 @@ public class ProgramaPrincipal {
 			switch (respostaAgenda) {
 			case 1: {
 				if (contador < 10) {
-					armazenaPessoa(agenda);
+					armazenaPessoa(agenda, teclado);
 					contador++;
 				} else {
 					System.out.println("Você atingiu o limite maximo de pessoas");

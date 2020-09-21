@@ -16,11 +16,7 @@ public class Funcionario {
 	}
 	
 	public void aumentaSalario() {	
-		if(this.orgaoLotacao.equals("Coordenação")) {
-			this.salario = this.salario * 1.05f;
-		} else {
 		this.salario = this.salario * 1.1f;
-		}
 	}
 	
 	public String getNome() {
@@ -56,5 +52,10 @@ public class Funcionario {
 	}
 	public void setSalario(float salario) {
 		this.salario = salario;
+	}
+
+	public void aumentoSalario() {
+		// TODO Auto-generated method stub
+		
 	}
 }

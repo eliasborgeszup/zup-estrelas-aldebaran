@@ -7,13 +7,13 @@ public class Professor extends Funcionario{
 	private int quantidadeTurmas;
 	
 	public Professor(String nome, String cpf, int numeroRegistro, String orgaoLotacao, float salario, String nivelGraduacao,
-			String disciplinaMinistrada, int quantidadeAlunos, int quantidadeTurmas) {
+			String disciplinaMinistrada) {
 		
 		super(nome, cpf, numeroRegistro, orgaoLotacao, salario);
 		this.nivelGraduacao = nivelGraduacao;
 		this.disciplinaMinistrada = disciplinaMinistrada;
-		this.quantidadeAlunos = quantidadeAlunos;
-		this.quantidadeTurmas = quantidadeTurmas;
+		this.quantidadeAlunos = 0;
+		this.quantidadeTurmas = 0;
 	}
 
 	public void adicionarTurmas(int adicionarTurma, int quantidadeAlunosTurma) {
@@ -40,16 +40,9 @@ public class Professor extends Funcionario{
 	public int getQuantidadeAlunos() {
 		return quantidadeAlunos;
 	}
-
-	public void setQuantidadeAlunos(int quantidadeAlunos) {
-		this.quantidadeAlunos = quantidadeAlunos;
-	}
-
+	
 	public int getQuantidadeTurmas() {
 		return quantidadeTurmas;
 	}
 
-	public void setQuantidadeTurmas(int quantidadeTurmas) {
-		this.quantidadeTurmas = quantidadeTurmas;
-	}
 }
