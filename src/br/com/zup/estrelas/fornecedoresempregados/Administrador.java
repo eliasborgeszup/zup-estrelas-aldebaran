@@ -28,6 +28,6 @@ public class Administrador extends Empregado{
 				+ "\nAjuda de Custo: R$ %.2f "
 				+ "\nTotal salario bruto: R$ %.2f", super.getSalarioBase(), this.ajudaCusto, super.getSalarioBase() + this.ajudaCusto);
 		System.out.printf("\nSalario liquido: R$ %.2f", this.calcularSalario());
-		System.out.println("\n======================================");
+		System.out.println("\n=========================================");
 	}
 }

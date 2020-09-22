@@ -77,6 +77,5 @@ public class Agenda {
 			System.out.printf("\nIdade: %d", pessoas[posicao].getIdade());
 			System.out.printf("\nAltura: %.2f\n\n", pessoas[posicao].getAltura());
 		}
-
 	}
 }

@@ -8,7 +8,7 @@ public class ControleFornecedorEmpregado {
 		Empregado dayana = new Empregado("Dayana", "George Street", "11", 001, 4500f);
 		Administrador joao = new Administrador("João Gabriel", "Rua Sirius", "34", 002, 10000f, 500f);
 
-		System.out.println("\n\n======= DADOS DOS FORNECEDORES =======");
+		System.out.println("======= DADOS DOS FORNECEDORES =======");
 		elias.imprimirFornecedor();
 		idinilson.imprimirFornecedor();
 
