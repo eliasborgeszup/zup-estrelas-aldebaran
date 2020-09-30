@@ -2,19 +2,23 @@ package br.com.zup.estrelas.exerciciotres;
 
 public class Pessoa {
 	private String nome;
-	private int idade;
-	private float altura;
+	private Integer idade;
+	private Float altura;
+	
+	//Static - Quando o programa inicializar vai executar
+	//Final - Não deixa que a variavel seja alterada
+	public static final int QUANTIDADE_PESSOAS_ADICIONADAS = 10;
 
 	public Pessoa() {
-		this.nome = null;
-		this.idade = 0;
-		this.altura = 0;
+
 	}
 	
 	public Pessoa(String nome, int idade, float altura) {
 		this.nome = nome;
 		this.idade = idade;
 		this.altura = altura;
+		
+		//String idade = String.valueOf(idade);
 	}
 
 	public String getNome() {

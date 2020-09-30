@@ -1,0 +1,7 @@
+Nome:Elias Junio
+Idade:20
+Altura:1.8Nome:Elias Junio
+Idade:20
+Altura:1.8Nome:Jn
+Idade:21
+Altura:21.0
