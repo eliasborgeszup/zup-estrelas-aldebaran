@@ -1,6 +1,6 @@
 package br.com.zup.estrelas.auladezesseis.exercicioum;
 
-public class ElevadorException extends RuntimeException {
+public class ElevadorException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

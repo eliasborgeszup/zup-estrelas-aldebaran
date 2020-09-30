@@ -30,26 +30,24 @@ public class Elevador {
 		throw new CargaException("Não existe pessoas no elevador");
 	}
 	
-	public void sobe(int quantidadeAndar) {
+	public void sobe(int quantidadeAndar) throws ElevadorException {
 		for (int i = 0; i < quantidadeAndar; i++) {
 			if(this.andarAtual < this.totalAndares) {
 				this.andarAtual++;
 			} else {
 				this.andarAtual = this.totalAndares;
-				System.out.println("\nChegamos ao ultimo andar, 10° Andar");
-				break;
-			}
+				throw new ControleAndarException("\nChegamos ao ultimo andar, 10° Andar");
+			}			
 		}
 	}
 	
-	public void desce(int quantidadeAndar) {
+	public void desce(int quantidadeAndar) throws ElevadorException {
 		for (int i = 0; i <= quantidadeAndar; i++) {
 			if(this.andarAtual > 0) {
 				this.andarAtual--;
 			} else {
 				this.andarAtual = 0;
-				System.out.println("Chegamos ao terreo");
-				break;
+				throw new ControleAndarException("Chegamos ao terreo");
 			}
 		}
 	}
