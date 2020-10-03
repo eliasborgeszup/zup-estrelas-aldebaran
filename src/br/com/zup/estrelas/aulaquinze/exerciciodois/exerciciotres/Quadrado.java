@@ -1,4 +1,4 @@
-package br.com.zup.estrelas.aulaquinze;
+package br.com.zup.estrelas.aulaquinze.exerciciodois.exerciciotres;
 
 public class Quadrado implements IFiguraGeometrica{
 	private double lado;

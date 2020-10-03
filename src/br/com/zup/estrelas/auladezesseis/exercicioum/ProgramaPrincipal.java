@@ -19,7 +19,7 @@ public class ProgramaPrincipal {
 			System.out.println("Entrou uma pessoa, total de pessoas: " + elevador.getQuantidadePessoasPresente());
 		} catch (CargaException e) {
 			System.out.println(e.getMensagem());
-			e.getStackTrace();
+			//e.getStackTrace();
 		}
 	}
 
@@ -29,13 +29,14 @@ public class ProgramaPrincipal {
 			System.out.println("Saiu uma pessoa, total de pessoas: " + elevador.getQuantidadePessoasPresente());
 		} catch (CargaException e) {
 			System.out.println(e.getMensagem());
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args) throws ElevadorException {
+	public static void main(String[] args) throws ElevadorException{
 		Elevador elevador = new Elevador(10, 2);
 
+		
 		elevador.setQuantidadePessoasPresente(10);
 
 		entra(elevador);
