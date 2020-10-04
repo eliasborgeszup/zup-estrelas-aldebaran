@@ -14,29 +14,22 @@ import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.RemoverClienteExcep
 
 public class ConsoleGerente {
 
-	public static void menuPrincipal() {
-		System.out.println("\t# Sistema De Gerenciamento de Clientes #\n");
-		System.out.println("\t(1) - Cadastrar novo cliente;");
-		System.out.println("\t(2) - Remover cliente;");
-		System.out.println("\t(3) - Aumentar limite cartão;");
-		System.out.println("\t(4) - Diminuir limite cartão;");
-		System.out.println("\t(5) - Aumentar limite cheque especial;");
-		System.out.println("\t(6) - Diminuir limite cheque especial;");
-		System.out.println("\t(7) - Realizar transferência;");
-		System.out.println("\t(8) - Realizar depósito;");
-		System.out.println("\t(9) - Imprimir clientes;");
-		System.out.println("\t(0) - Finalizar programa;\n");
-		System.out.print("\n\n\tEscolha uma das opções acima: ");
-	}
-
-	public static void menuCadastrarCliente(Scanner teclado, Gerente gerente) {
+	private static final String MENU_PRINCIPAL = ("\t# Sistema De Gerenciamento de Clientes #\n") +
+			("\t(1) - Cadastrar novo cliente;\n") + ("\t(2) - Remover cliente;\n") +
+			("\t(3) - Aumentar limite cartão;\n") + ("\t(4) - Diminuir limite cartão;\n") +
+			("\t(5) - Aumentar limite cheque especial;\n") + ("\t(6) - Diminuir limite cheque especial;\n") +
+			("\t(7) - Realizar transferência;\n") + ("\t(8) - Realizar depósito;\n") +
+			("\t(9) - Imprimir clientes;\n") + ("\t(0) - Finalizar programa;\n");	
+	
+	private static final String MENU_CADASTRAR_CLIENTE = ("\n\t(1) - Cadastrar pessoa física\n") +
+			("\t(2) - Cadastrar pessoa jurídica\n") + ("\t(0) - Ir para o menu principal\n");
+	
+	public static void cadastrarCliente(Scanner teclado, Gerente gerente) {
 
 		String opcao = null;
 
 		do {
-			System.out.println("\n\t(1) - Cadastrar pessoa física");
-			System.out.println("\t(2) - Cadastrar pessoa jurídica");
-			System.out.println("\t(0) - Ir para o menu principal\n");
+			System.out.println(MENU_CADASTRAR_CLIENTE);
 
 			System.out.print("\n\tEscolha uma das opções acima: ");
 			opcao = teclado.next();
@@ -54,7 +47,7 @@ public class ConsoleGerente {
 				break;
 
 			default:
-				System.out.println("\n\tOpção inválida. Por favor tente uma opção de 0 a 3.\n");
+				System.out.println("\n\tOpção inválida. Por favor tente uma opção de 0 a 2.\n");
 				break;
 			}
 
@@ -80,16 +73,16 @@ public class ConsoleGerente {
 
 		System.out.print("\n\tDigite o numero da conta: ");
 		String numeroDaConta = teclado.next();
-		
-		while(gerente.verificaExistenciaConta(numeroDaConta)) {
-			System.out.print("\n\tNumero da conta existente, digite novamente: ");
+
+		while (gerente.verificaExistenciaConta(numeroDaConta)) {
+			System.out.print("\n\tNumero da conta já cadastrada, por favor digite um numero diferente: ");
 			numeroDaConta = teclado.next();
 		}
-		
+
 		System.out.print("\n\tDigite o saldo inicial: ");
 		double saldo = teclado.nextDouble();
-		
-		while(saldo <= 0) {
+
+		while (saldo <= 0) {
 			System.out.print("\n\tSaldo não pode ser menor ou igual a 0, digite novamente: ");
 			saldo = teclado.nextDouble();
 		}
@@ -109,7 +102,7 @@ public class ConsoleGerente {
 			System.out.println(e.getMensagem());
 		}
 	}
-	
+
 	public static void cadastrarPessoaJuridica(Scanner teclado, Gerente gerente) {
 		teclado.nextLine();
 		System.out.print("\n\tDigite a razão social: ");
@@ -130,15 +123,25 @@ public class ConsoleGerente {
 		System.out.print("\n\tDigite o numero da conta: ");
 		String numeroDaConta = teclado.next();
 
+		while (gerente.verificaExistenciaConta(numeroDaConta)) {
+			System.out.print("\n\tNumero da conta existente, digite novamente: ");
+			numeroDaConta = teclado.next();
+		}
+
 		System.out.print("\n\tDigite o saldo inicial: ");
 		double saldo = teclado.nextDouble();
+
+		while (saldo <= 0) {
+			System.out.print("\n\tSaldo não pode ser menor ou igual a 0, digite novamente: ");
+			saldo = teclado.nextDouble();
+		}
 
 		System.out.print("\n\tDigite o limite do cheque especial: ");
 		double limiteChequeEspecial = teclado.nextDouble();
 
 		System.out.print("\n\tDigite o limite do cartão de crédito: ");
 		double limiteCartaoCredito = teclado.nextDouble();
-		
+
 		int qtdSocios = 0;
 
 		do {
@@ -166,13 +169,43 @@ public class ConsoleGerente {
 			System.out.println(e.getMensagem());
 		}
 	}
-	
+
 	public static String buscarNumeroConta(Scanner teclado, String tipoOperacao) {
 		System.out.printf("\n\tDigite o número da conta que deseja %s: ", tipoOperacao);
 		String numeroConta = teclado.next();
 		return numeroConta;
 	}
 
+	public static void solicitarTransferencia(Scanner teclado, Gerente gerente) {
+		System.out.print("\n\tDigite o número da conta de origem: ");
+		String numeroContaOrigem = teclado.next();
+
+		System.out.print("\n\tDigite o número da conta de destino: ");
+		String numeroContaDestino = teclado.next();
+
+		System.out.print("\n\tDigite o valor a ser transferido: R$ ");
+		double valorTransferencia = teclado.nextDouble();
+
+		try {
+			gerente.transferencia(numeroContaOrigem, numeroContaDestino, valorTransferencia);
+			System.out.println("\n\tTransferência realizada com sucesso!\n");
+		} catch (LimiteClienteException e) {
+			System.out.println(e.getMensagem());
+		}
+	}
+	
+	public static void solicitarDeposito(Scanner teclado, Gerente gerente) {
+		String numeroContaDestino = buscarNumeroConta(teclado, "realizar deposito");
+
+		System.out.print("\n\tDigite o valor a ser depositado: ");
+		double deposito = teclado.nextDouble();
+		try {
+			gerente.adicionaSaldo(numeroContaDestino, deposito);
+			System.out.println("\n\tDeposito  na conta %s realizado com sucesso!\n");
+		} catch (AdicionaSaldoCartaoClienteException e) {
+			System.out.println(e.getMensagem());
+		}
+	}
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		Gerente gerente = new Gerente();
@@ -181,12 +214,14 @@ public class ConsoleGerente {
 		String opcao = null;
 
 		do {
-			menuPrincipal();
+			System.out.println(MENU_PRINCIPAL);
+			
+			System.out.print("\n\n\tEscolha uma das opções acima: ");
 			opcao = teclado.next();
 
 			switch (opcao) {
 			case "1":
-				menuCadastrarCliente(teclado, gerente);
+				cadastrarCliente(teclado, gerente);
 				break;
 
 			case "2":
@@ -214,7 +249,7 @@ public class ConsoleGerente {
 
 			case "4":
 				numeroConta = buscarNumeroConta(teclado, "reduzir limite do cartão");
-				
+
 				try {
 					gerente.diminuirLimiteCartao(numeroConta);
 					System.out.printf("\n\tLimite da cartao[%s] reduzido com sucesso!\n", numeroConta);
@@ -246,36 +281,11 @@ public class ConsoleGerente {
 				break;
 
 			case "7":
-				System.out.print("\n\tDigite o número da conta de origem: ");
-				String numeroContaOrigem = teclado.next();
-
-				System.out.print("\n\tDigite o número da conta de destino: ");
-				String numeroContaDestino = teclado.next();
-
-				System.out.print("\n\tDigite o valor a ser transferido: R$ ");
-				double valorTransferencia = teclado.nextDouble();
-
-				try {
-					gerente.transferencia(numeroContaOrigem, numeroContaDestino, valorTransferencia);
-					System.out.println("\n\tTransferência realizada com sucesso!\n");
-				} catch (LimiteClienteException e) {
-					System.out.println(e.getMensagem());
-				}
+				solicitarTransferencia(teclado, gerente);
 				break;
 
 			case "8":
-
-				System.out.print("\n\tDigite o número da conta de destino: ");
-				numeroContaDestino = teclado.next();
-
-				System.out.print("\n\tDigite o valor a ser depositado: ");
-				double deposito = teclado.nextDouble();
-				try {
-					gerente.adicionaSaldo(numeroContaDestino, deposito);
-					System.out.println("\n\tDeposito  na conta %s realizado com sucesso!\n");
-				} catch (AdicionaSaldoCartaoClienteException e) {
-					System.out.println(e.getMensagem());
-				}
+				solicitarDeposito(teclado, gerente);
 				break;
 
 			case "9":

@@ -108,16 +108,16 @@ public class Gerente implements IControleLimite {
 
 	public void transferencia(String numeroContaOrigem, String numeroContaDestino, double valorTransferencia)
 			throws LimiteClienteException {
-		boolean verificaExistenciaContaOrigem, verificaExistenciaContaDestion;
+		boolean verificaExistenciaContaOrigem, verificaExistenciaContaDestino;
 
 		if (!numeroContaOrigem.equals(numeroContaDestino)) {
 			verificaExistenciaContaOrigem = verificaExistenciaConta(numeroContaOrigem);
-			verificaExistenciaContaDestion = verificaExistenciaConta(numeroContaDestino);
+			verificaExistenciaContaDestino = verificaExistenciaConta(numeroContaDestino);
 		} else {
 			throw new LimiteClienteException("\n\t[Contas iguais] Não foi possivel realizar a transferencia\n");
 		}
 
-		if (verificaExistenciaContaOrigem && verificaExistenciaContaDestion) {
+		if (verificaExistenciaContaOrigem && verificaExistenciaContaDestino) {
 			// Debitando Saldo da conta origem;
 			for (int i = 0; i < clientes.length; i++) {
 				if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroContaOrigem)) {
@@ -141,7 +141,7 @@ public class Gerente implements IControleLimite {
 
 			}
 		} else {
-			throw new LimiteClienteException("\n\t Não foi possivel realizar a transferencia, tente novamente\n");
+			throw new LimiteClienteException("\n\tNão foi possivel realizar a transferencia, tente novamente\n");
 		}
 	}
 
