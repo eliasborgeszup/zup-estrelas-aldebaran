@@ -43,99 +43,11 @@ public class ConsoleGerente {
 
 			switch (opcao) {
 			case "1":
-				teclado.nextLine();
-				System.out.print("\n\tDigite o nome do cliente: ");
-				String nome = teclado.nextLine();
-
-				System.out.print("\n\tDigite o CPF: ");
-				String cpf = teclado.next();
-
-				System.out.print("\n\tDigite a idade: ");
-				int idade = teclado.nextInt();
-
-				System.out.print("\n\tDigite o telefone do cliente: ");
-				String telefone = teclado.next();
-
-				System.out.print("\n\tDigite o numero da agencia: ");
-				String agencia = teclado.next();
-
-				System.out.print("\n\tDigite o numero da conta: ");
-				String numeroDaConta = teclado.next();
-
-				System.out.print("\n\tDigite o saldo inicial: ");
-				double saldo = teclado.nextDouble();
-
-				System.out.print("\n\tDigite o limite do cheque especial: ");
-				double limiteChequeEspecial = teclado.nextDouble();
-
-				System.out.print("\n\tDigite o limite do cartão de crédito: ");
-				double limiteCartaoCredito = teclado.nextDouble();
-
-				PessoaFisica pf = new PessoaFisica(numeroDaConta, telefone, agencia, saldo, limiteChequeEspecial,
-						limiteCartaoCredito, cpf, nome, idade);
-				try {
-					gerente.cadastrarCliente(pf);
-					System.out.printf("\n\tCliente[%s] cadastrado com sucesso!\n", pf.getNumeroConta());
-				} catch (CadastrarClienteException e) {
-					System.out.println(e.getMensagem());
-				}
+				cadastrarPessoaFisica(teclado, gerente);
 				break;
 
 			case "2":
-				teclado.nextLine();
-				System.out.print("\n\tDigite a razão social: ");
-				String razaoSocial = teclado.nextLine();
-
-				System.out.print("\n\tDigite o nome fantasia: ");
-				String nomeFantasia = teclado.nextLine();
-
-				System.out.print("\n\tDigite o CNPJ: ");
-				String cnpj = teclado.nextLine();
-
-				System.out.print("\n\tDigite o telefone do cliente: ");
-				telefone = teclado.next();
-
-				System.out.print("\n\tDigite o numero da agencia: ");
-				agencia = teclado.next();
-
-				System.out.print("\n\tDigite o numero da conta: ");
-				numeroDaConta = teclado.next();
-
-				System.out.print("\n\tDigite o saldo inicial: ");
-				saldo = teclado.nextDouble();
-
-				System.out.print("\n\tDigite o limite do cheque especial: ");
-				limiteChequeEspecial = teclado.nextDouble();
-
-				System.out.print("\n\tDigite o limite do cartão de crédito: ");
-				limiteCartaoCredito = teclado.nextDouble();
-				int qtdSocios = 0;
-
-				do {
-					System.out.print("\n\tQuantos socios deseja cadastrar: ");
-					qtdSocios = teclado.nextInt();
-					if (qtdSocios <= 0 && qtdSocios >= 4) {
-						System.out.println("\n\tInclua de 1 a 3 sócios/\n");
-					}
-					teclado.nextLine();
-				} while (qtdSocios <= 0 && qtdSocios >= 4);
-
-				String[] nomesSocios = new String[qtdSocios];
-				for (int i = 0; i < nomesSocios.length; i++) {
-					System.out.printf("\n\tDigite o %d° nome: ", i + 1);
-					nomesSocios[i] = teclado.nextLine();
-				}
-
-				PessoaJuridica pj = new PessoaJuridica(numeroDaConta, telefone, agencia, saldo, limiteChequeEspecial,
-						limiteCartaoCredito, cnpj, razaoSocial, nomeFantasia, nomesSocios);
-
-				try {
-					gerente.cadastrarCliente(pj);
-					System.out.printf("\n\tCliente[%s] cadastrado com sucesso!\n", pj.getNumeroConta());
-				} catch (CadastrarClienteException e) {
-					System.out.println(e.getMensagem());
-				}
-
+				cadastrarPessoaJuridica(teclado, gerente);
 				break;
 
 			case "0":
@@ -149,6 +61,112 @@ public class ConsoleGerente {
 		} while (!opcao.equals("0"));
 	}
 
+	public static void cadastrarPessoaFisica(Scanner teclado, Gerente gerente) {
+		teclado.nextLine();
+		System.out.print("\n\tDigite o nome do cliente: ");
+		String nome = teclado.nextLine();
+
+		System.out.print("\n\tDigite o CPF: ");
+		String cpf = teclado.next();
+
+		System.out.print("\n\tDigite a idade: ");
+		int idade = teclado.nextInt();
+
+		System.out.print("\n\tDigite o telefone do cliente: ");
+		String telefone = teclado.next();
+
+		System.out.print("\n\tDigite o numero da agencia: ");
+		String agencia = teclado.next();
+
+		System.out.print("\n\tDigite o numero da conta: ");
+		String numeroDaConta = teclado.next();
+		
+		while(gerente.verificaExistenciaConta(numeroDaConta)) {
+			System.out.print("\n\tNumero da conta existente, digite novamente: ");
+			numeroDaConta = teclado.next();
+		}
+		
+		System.out.print("\n\tDigite o saldo inicial: ");
+		double saldo = teclado.nextDouble();
+		
+		while(saldo <= 0) {
+			System.out.print("\n\tSaldo não pode ser menor ou igual a 0, digite novamente: ");
+			saldo = teclado.nextDouble();
+		}
+
+		System.out.print("\n\tDigite o limite do cheque especial: ");
+		double limiteChequeEspecial = teclado.nextDouble();
+
+		System.out.print("\n\tDigite o limite do cartão de crédito: ");
+		double limiteCartaoCredito = teclado.nextDouble();
+
+		PessoaFisica pf = new PessoaFisica(numeroDaConta, telefone, agencia, saldo, limiteChequeEspecial,
+				limiteCartaoCredito, cpf, nome, idade);
+		try {
+			gerente.cadastrarCliente(pf);
+			System.out.printf("\n\tCliente[%s] cadastrado com sucesso!\n", pf.getNumeroConta());
+		} catch (CadastrarClienteException e) {
+			System.out.println(e.getMensagem());
+		}
+	}
+	
+	public static void cadastrarPessoaJuridica(Scanner teclado, Gerente gerente) {
+		teclado.nextLine();
+		System.out.print("\n\tDigite a razão social: ");
+		String razaoSocial = teclado.nextLine();
+
+		System.out.print("\n\tDigite o nome fantasia: ");
+		String nomeFantasia = teclado.nextLine();
+
+		System.out.print("\n\tDigite o CNPJ: ");
+		String cnpj = teclado.nextLine();
+
+		System.out.print("\n\tDigite o telefone do cliente: ");
+		String telefone = teclado.next();
+
+		System.out.print("\n\tDigite o numero da agencia: ");
+		String agencia = teclado.next();
+
+		System.out.print("\n\tDigite o numero da conta: ");
+		String numeroDaConta = teclado.next();
+
+		System.out.print("\n\tDigite o saldo inicial: ");
+		double saldo = teclado.nextDouble();
+
+		System.out.print("\n\tDigite o limite do cheque especial: ");
+		double limiteChequeEspecial = teclado.nextDouble();
+
+		System.out.print("\n\tDigite o limite do cartão de crédito: ");
+		double limiteCartaoCredito = teclado.nextDouble();
+		
+		int qtdSocios = 0;
+
+		do {
+			System.out.print("\n\tQuantos socios deseja cadastrar: ");
+			qtdSocios = teclado.nextInt();
+			if (qtdSocios <= 0 && qtdSocios >= 4) {
+				System.out.println("\n\tInclua de 1 a 3 sócios/\n");
+			}
+			teclado.nextLine();
+		} while (qtdSocios <= 0 && qtdSocios >= 4);
+
+		String[] nomesSocios = new String[qtdSocios];
+		for (int i = 0; i < nomesSocios.length; i++) {
+			System.out.printf("\n\tDigite o %d° nome: ", i + 1);
+			nomesSocios[i] = teclado.nextLine();
+		}
+
+		PessoaJuridica pj = new PessoaJuridica(numeroDaConta, telefone, agencia, saldo, limiteChequeEspecial,
+				limiteCartaoCredito, cnpj, razaoSocial, nomeFantasia, nomesSocios);
+
+		try {
+			gerente.cadastrarCliente(pj);
+			System.out.printf("\n\tCliente[%s] cadastrado com sucesso!\n", pj.getNumeroConta());
+		} catch (CadastrarClienteException e) {
+			System.out.println(e.getMensagem());
+		}
+	}
+	
 	public static String buscarNumeroConta(Scanner teclado, String tipoOperacao) {
 		System.out.printf("\n\tDigite o número da conta que deseja %s: ", tipoOperacao);
 		String numeroConta = teclado.next();

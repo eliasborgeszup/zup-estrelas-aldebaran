@@ -8,15 +8,15 @@ import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.ClienteException;
 import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.DiminuirLimiteCartaoClienteException;
 import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.DiminuirLimiteChequeClienteException;
 import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.LimiteClienteException;
-import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.RemoverClienteException; 
+import br.com.zup.estrelas.auladezesseis.bancozup.exceptions.RemoverClienteException;
 
 public class Gerente implements IControleLimite {
-	private final int NUMERO_MAXIMO_CLIENTES =  20;
+	private final int NUMERO_MAXIMO_CLIENTES = 20;
 	private final float PORCENTUAL_AUMENTO_LIMITE_CHEQUE = 1.15F;
 	private final float PORCENTUAL_AUMENTO_CARTAO_CREDITO = 1.10F;
 	private final float PORCENTUAL_DIMINUICAO_LIMITE_CHEQUE = 0.85F;
 	private final float PORCENTUAL_DIMINUICAO_CARTAO_CREDITO = 0.90F;
-	
+
 	private Cliente[] clientes;
 
 	public Gerente() {
@@ -30,7 +30,7 @@ public class Gerente implements IControleLimite {
 				return;
 			}
 		}
-		
+
 		throw new CadastrarClienteException("\n\tInfelizmente você atingiu o limite maximo de clientes cadastrado!\n");
 	}
 
@@ -48,88 +48,137 @@ public class Gerente implements IControleLimite {
 	public void aumentarLimiteCheque(String numeroConta) throws AumentarLimiteChequeClienteException {
 		for (int i = 0; i < clientes.length; i++) {
 			if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroConta)) {
-				clientes[i].setLimiteChequeEspecial(clientes[i].getLimiteChequeEspecial() * PORCENTUAL_AUMENTO_LIMITE_CHEQUE);
+				clientes[i].setLimiteChequeEspecial(
+						clientes[i].getLimiteChequeEspecial() * PORCENTUAL_AUMENTO_LIMITE_CHEQUE);
 				return;
 			}
 		}
-		throw new AumentarLimiteChequeClienteException(String.format("\n\tNúmero da conta[%s] inexistente\n", numeroConta));
+		throw new AumentarLimiteChequeClienteException(
+				String.format("\n\tNúmero da conta[%s] inexistente\n", numeroConta));
 	}
 
 	@Override
 	public void aumentarLimiteCartao(String numeroConta) throws AumentarLimiteCartaoClienteException {
 		for (int i = 0; i < clientes.length; i++) {
 			if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroConta)) {
-				clientes[i].setLimiteCartaoCredito(clientes[i].getLimiteCartaoCredito() * PORCENTUAL_AUMENTO_CARTAO_CREDITO);
+				clientes[i].setLimiteCartaoCredito(
+						clientes[i].getLimiteCartaoCredito() * PORCENTUAL_AUMENTO_CARTAO_CREDITO);
 				return;
 			}
 		}
-		throw new AumentarLimiteCartaoClienteException(String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
+		throw new AumentarLimiteCartaoClienteException(
+				String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
 	}
 
 	@Override
 	public void diminuirLimiteCheque(String numeroConta) throws DiminuirLimiteChequeClienteException {
 		for (int i = 0; i < clientes.length; i++) {
 			if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroConta)) {
-				clientes[i].setLimiteChequeEspecial(clientes[i].getLimiteChequeEspecial() * PORCENTUAL_DIMINUICAO_LIMITE_CHEQUE);
+				clientes[i].setLimiteChequeEspecial(
+						clientes[i].getLimiteChequeEspecial() * PORCENTUAL_DIMINUICAO_LIMITE_CHEQUE);
 				return;
 			}
 		}
-		throw new DiminuirLimiteChequeClienteException(String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
+		throw new DiminuirLimiteChequeClienteException(
+				String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
 	}
 
 	@Override
 	public void diminuirLimiteCartao(String numeroConta) throws DiminuirLimiteCartaoClienteException {
 		for (int i = 0; i < clientes.length; i++) {
 			if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroConta)) {
-				clientes[i].setLimiteCartaoCredito(clientes[i].getLimiteCartaoCredito() * PORCENTUAL_DIMINUICAO_CARTAO_CREDITO);
+				clientes[i].setLimiteCartaoCredito(
+						clientes[i].getLimiteCartaoCredito() * PORCENTUAL_DIMINUICAO_CARTAO_CREDITO);
 				return;
 			}
 		}
-		throw new DiminuirLimiteCartaoClienteException(String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
+		throw new DiminuirLimiteCartaoClienteException(
+				String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
 	}
 
-	public boolean transferencia(String numeroContaOrigem, String numeroContaDestino, double valorTransferencia) throws LimiteClienteException {
+	public boolean verificaExistenciaConta(String numeroConta) {
+		for (int i = 0; i < clientes.length; i++) {
+			if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroConta)) {
+				return true;
+			}
+		}
 
-		int aux = 0;
-		int contaDestinoExistente = 0, contaOrigemExistente = 0;
+		return false;
+	}
+
+	public void transferencia(String numeroContaOrigem, String numeroContaDestino, double valorTransferencia)
+			throws LimiteClienteException {
+		boolean verificaExistenciaContaOrigem, verificaExistenciaContaDestion;
 
 		if (!numeroContaOrigem.equals(numeroContaDestino)) {
+			verificaExistenciaContaOrigem = verificaExistenciaConta(numeroContaOrigem);
+			verificaExistenciaContaDestion = verificaExistenciaConta(numeroContaDestino);
+		} else {
+			throw new LimiteClienteException("\n\t[Contas iguais] Não foi possivel realizar a transferencia\n");
+		}
+
+		if (verificaExistenciaContaOrigem && verificaExistenciaContaDestion) {
 			// Debitando Saldo da conta origem;
 			for (int i = 0; i < clientes.length; i++) {
 				if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroContaOrigem)) {
-					if (clientes[i].getSaldo() >= valorTransferencia) {
+					if (clientes[i].getSaldo() < valorTransferencia) {
+						throw new LimiteClienteException(
+								"\n\t[Saldo insuficiente] Não foi possivel realizar a transferencia\n");
+					} else {
 						clientes[i].setSaldo(clientes[i].getSaldo() - valorTransferencia);
-						contaOrigemExistente = 1;
-						aux = i;
 						break;
 					}
 				}
 			}
 
 			// Creditando Saldo na Conta Destino;
-			if (contaOrigemExistente == 1) {
-				for (int i = 0; i < clientes.length; i++) {
-					if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroContaDestino)) {
-						clientes[i].setSaldo(clientes[i].getSaldo() + valorTransferencia);
-						contaDestinoExistente = 1;
-					}
+
+			for (int i = 0; i < clientes.length; i++) {
+				if (clientes[i] != null && clientes[i].getNumeroConta().equals(numeroContaDestino)) {
+					clientes[i].setSaldo(clientes[i].getSaldo() + valorTransferencia);
+					break;
 				}
+
 			}
-			
-			if (contaOrigemExistente == 1 && contaDestinoExistente != 1) {
-				clientes[aux].setSaldo(clientes[aux].getSaldo() + valorTransferencia);
-				throw new LimiteClienteException(String.format("\n\tNúmero da conta[%s] destino não existe\n", numeroContaDestino));
-			}
-			
-			if (contaOrigemExistente == 1 && contaDestinoExistente == 1) {
-				return true;
-			} else {
-				throw new LimiteClienteException("\n\tNão foi possivel realizar a transferencia\n");
-			}
-	
+		} else {
+			throw new LimiteClienteException("\n\t Não foi possivel realizar a transferencia, tente novamente\n");
 		}
-		throw new LimiteClienteException("\n\tNão foi possivel realizar a transferencia, contas iguais\n");
 	}
+
+	/*
+	 * public boolean transferencia(String numeroContaOrigem, String
+	 * numeroContaDestino, double valorTransferencia) throws LimiteClienteException
+	 * {
+	 * 
+	 * int aux = 0; int contaDestinoExistente = 0, contaOrigemExistente = 0;
+	 * 
+	 * if (!numeroContaOrigem.equals(numeroContaDestino)) { // Debitando Saldo da
+	 * conta origem; for (int i = 0; i < clientes.length; i++) { if (clientes[i] !=
+	 * null && clientes[i].getNumeroConta().equals(numeroContaOrigem)) { if
+	 * (clientes[i].getSaldo() >= valorTransferencia) {
+	 * clientes[i].setSaldo(clientes[i].getSaldo() - valorTransferencia);
+	 * contaOrigemExistente = 1; aux = i; break; } } }
+	 * 
+	 * // Creditando Saldo na Conta Destino; if (contaOrigemExistente == 1) { for
+	 * (int i = 0; i < clientes.length; i++) { if (clientes[i] != null &&
+	 * clientes[i].getNumeroConta().equals(numeroContaDestino)) {
+	 * clientes[i].setSaldo(clientes[i].getSaldo() + valorTransferencia);
+	 * contaDestinoExistente = 1; } } }
+	 * 
+	 * if (contaOrigemExistente == 1 && contaDestinoExistente != 1) {
+	 * clientes[aux].setSaldo(clientes[aux].getSaldo() + valorTransferencia); throw
+	 * new LimiteClienteException(
+	 * String.format("\n\tNúmero da conta[%s] destino não existe\n",
+	 * numeroContaDestino)); }
+	 * 
+	 * if (contaOrigemExistente == 1 && contaDestinoExistente == 1) { return true; }
+	 * else { throw new
+	 * LimiteClienteException("\n\tNão foi possivel realizar a transferencia\n"); }
+	 * 
+	 * } throw new
+	 * LimiteClienteException("\n\tNão foi possivel realizar a transferencia, contas iguais\n"
+	 * ); }
+	 */
 
 	public void adicionaSaldo(String numeroConta, double deposito) throws AdicionaSaldoCartaoClienteException {
 
@@ -139,8 +188,9 @@ public class Gerente implements IControleLimite {
 				return;
 			}
 		}
-		
-		throw new AdicionaSaldoCartaoClienteException(String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
+
+		throw new AdicionaSaldoCartaoClienteException(
+				String.format("\n\tNúmero da conta[%s] inexistente!\n", numeroConta));
 	}
 
 	public void imprimeClientes() throws ClienteException {
@@ -151,12 +201,12 @@ public class Gerente implements IControleLimite {
 				 * if(cliente instanceof PessoaFisica) { PessoaFisica pessoaFisica =
 				 * (PessoaFisica) cliente; pessoaFisica.imprimeDados(); }
 				 */
-				
+
 				cliente.imprimeDados();
 				contador = 1;
 			}
 		}
-		
+
 		if (contador != 1) {
 			throw new ClienteException("\n\tNão possui nenhum cliente cadastrado!\n");
 		}
